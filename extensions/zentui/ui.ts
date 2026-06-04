@@ -34,7 +34,6 @@ export class PolishedEditor extends CustomEditor {
 	private readonly getThinkingLevel: () => string | undefined;
 	private readonly getConfig: () => PolishedTuiConfig;
 	private readonly uiTheme: Theme;
-	private readonly reset = "\x1b[0m";
 
 	constructor(
 		tui: TUI,
@@ -147,13 +146,6 @@ export class PolishedEditor extends CustomEditor {
 		}
 		const meta = metaParts.filter(Boolean).join(safeThemeFg(this.uiTheme, "border", "  "));
 
-		const rail = `${renderStyleForSourceOrFallback(
-			this.uiTheme,
-			colorSource,
-			config.colors.editorAccent,
-			EDITOR_ACCENT_FALLBACK,
-			"│",
-		)}${this.reset} `;
 		const top = renderStyleForSourceOrFallback(
 			this.uiTheme,
 			colorSource,
@@ -168,10 +160,10 @@ export class PolishedEditor extends CustomEditor {
 			EDITOR_BORDER_FALLBACK,
 			"─".repeat(width),
 		);
-		const lines = ["", ...editorLines, "", meta];
+		const lines = [...editorLines, meta];
 		const renderedLines = [
 			top,
-			...lines.map((line) => `${rail}${this.fillLine(line, innerWidth)}`),
+			...lines.map((line) => this.fillLine(line, width)),
 			bottom,
 			...autocompleteLines,
 		];
