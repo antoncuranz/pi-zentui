@@ -152,9 +152,7 @@ function renderZentuiUserMessage(
 
 	return [
 		truncateToWidth(border, width, ""),
-		renderPromptBoxLine("", width, theme, config),
 		...contentLines.map((line) => renderPromptBoxLine(line, width, theme, config)),
-		renderPromptBoxLine("", width, theme, config),
 		truncateToWidth(border, width, ""),
 	];
 }
